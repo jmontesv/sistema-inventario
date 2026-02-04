@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="max-w-md mx-auto py-10">
+    <h1 class="text-2xl font-bold mb-6">Importar productos</h1>
+    <form method="post" enctype="multipart/form-data" class="bg-white p-6 rounded shadow">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Importar CSV
+        </button>
+    </form>
+</div>
+{% endblock %}

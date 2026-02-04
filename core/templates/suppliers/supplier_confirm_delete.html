@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-xl mx-auto px-4 py-16">
+
+    <div class="bg-white rounded-xl shadow-sm p-8 border border-red-200">
+        <h1 class="text-xl font-bold text-gray-900 mb-4">
+            Eliminar proveedor
+        </h1>
+
+        <p class="text-gray-600 mb-6">
+            ¿Seguro que deseas eliminar el proveedor
+            <span class="font-semibold">{{ object.name }}</span>?
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="flex justify-end space-x-4">
+                <a href="{% url 'supplier_list' %}"
+                   class="px-4 py-2 rounded-lg border text-gray-700 hover:bg-gray-100">
+                    Cancelar
+                </a>
+
+                <button type="submit"
+                        class="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition">
+                    Eliminar
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

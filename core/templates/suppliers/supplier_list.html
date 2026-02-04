@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+    <div class="flex items-center justify-between mb-8">
+        <h1 class="text-2xl font-bold text-gray-900">
+            Proveedores
+        </h1>
+
+        <a href="{% url 'supplier_create' %}"
+           class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+            + Nuevo proveedor
+        </a>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {% for supplier in suppliers %}
+            <div class="bg-white rounded-xl shadow-sm hover:shadow-lg transition p-6 border border-gray-100">
+
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h2 class="text-lg font-semibold text-gray-900">
+                            {{ supplier.name }}
+                        </h2>
+
+                        <p class="text-sm text-gray-500 mt-1">
+                            {{ supplier.product_count }} producto{{ supplier.product_count|pluralize }}
+                        </p>
+                    </div>
+
+                    {% if supplier.is_active %}
+                        <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
+                            Activo
+                        </span>
+                    {% else %}
+                        <span class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full">
+                            Inactivo
+                        </span>
+                    {% endif %}
+                </div>
+
+                <div class="mt-4 space-y-1 text-sm text-gray-600">
+                    {% if supplier.email %}
+                        <p>📧 {{ supplier.email }}</p>
+                    {% endif %}
+                    {% if supplier.phone %}
+                        <p>📞 {{ supplier.phone }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="mt-6 flex justify-end space-x-4 text-sm">
+                    <a href="{% url 'supplier_edit' supplier.pk %}"
+                       class="text-blue-600 hover:text-blue-800 font-medium">
+                        Editar
+                    </a>
+                    <a href="{% url 'supplier_delete' supplier.pk %}"
+                       class="text-red-600 hover:text-red-800 font-medium">
+                        Eliminar
+                    </a>
+                </div>
+
+            </div>
+        {% empty %}
+            <p class="text-gray-500">No hay proveedores registrados.</p>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

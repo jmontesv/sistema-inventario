@@ -1,0 +1,50 @@
+{% if is_paginated %}
+<div class="mt-6 flex flex-col items-center gap-3">
+
+    <div class="text-sm text-gray-600">
+        Mostrando
+        <span class="font-semibold">
+            {{ page_obj.start_index }}
+        </span>
+        –
+        <span class="font-semibold">
+            {{ page_obj.end_index }}
+        </span>
+        de
+        <span class="font-semibold">
+            {{ page_obj.paginator.count }}
+        </span>
+        registros
+    </div>
+
+    <div class="flex items-center space-x-1">
+
+        {% if page_obj.has_previous %}
+        <a href="?{{ querystring }}&page={{ page_obj.previous_page_number }}#table"
+           class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">
+            ←
+        </a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if num == page_obj.number %}
+                <span class="px-3 py-1 bg-blue-600 text-white rounded font-semibold">
+                    {{ num }}
+                </span>
+            {% elif num >= page_obj.number|add:'-2' and num <= page_obj.number|add:'2' %}
+                <a href="?{{ querystring }}&page={{ num }}#table"
+                   class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">
+                    {{ num }}
+                </a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <a href="?{{ querystring }}&page={{ page_obj.next_page_number }}#table"
+           class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">
+            →
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}

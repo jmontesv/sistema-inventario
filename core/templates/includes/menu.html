@@ -1,0 +1,48 @@
+  <nav class="bg-white shadow relative z-10">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-blue-600"><a href="{% url 'home' %}">Inventario</a></h1>
+
+      <ul class="hidden md:flex md:flex-row md:space-x-6 md:items-center">
+        <li><a href="{% url 'product_list' %}" class="text-gray-700 hover:text-blue-600 font-medium">Productos</a></li>
+        <li><a href="{% url 'supplier_list' %}" class="text-gray-700 hover:text-blue-600 font-medium">Proveedores</a></li>
+        <li><a href="{% url 'category_list' %}" class="text-gray-700 hover:text-blue-600 font-medium">Categorías</a></li>
+        <li><a href="{% url 'movement_list' %}" class="text-gray-700 hover:text-blue-600 font-medium">Movimientos</a></li>
+      </ul>
+      
+      <div class="flex items-center space-x-4">
+      {% if user.is_authenticated %}
+          <span class="text-gray-700 font-medium">Hola, {{ user.username }}</span>
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+                Cerrar sesión
+            </button>
+          </form>
+      {% else %}
+          <a href="{% url 'login' %}" 
+            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+              Iniciar sesión
+          </a>
+          <a href="{% url 'register' %}" 
+            class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+              Registrarme
+          </a>
+      {% endif %}
+      </div>
+
+      <button id="menu-button" class="md:hidden  w-8 h-8 flex flex-col justify-center items-center space-y-1">
+        <span class="block w-6 h-0.5 bg-gray-800 transition-transform duration-300 ease-in-out"></span>
+        <span class="block w-6 h-0.5 bg-gray-800 transition-opacity duration-300 ease-in-out"></span>
+        <span class="block w-6 h-0.5 bg-gray-800 transition-transform duration-300 ease-in-out"></span>
+      </button>
+    </div>
+
+    <ul id="mobile-menu" class="hidden md:hidden flex-col bg-white px-4 pb-4 space-y-2 shadow-md">
+      <li><a href="{% url 'product_list' %}" class="block text-gray-700 hover:text-blue-600 font-medium py-2">Productos</a></li>
+      <li><a href="{% url 'supplier_list' %}" class="block text-gray-700 hover:text-blue-600 font-medium py-2">Proveedores</a></li>
+      <li><a href="{% url 'category_list' %}" class="block text-gray-700 hover:text-blue-600 font-medium py-2">Categorías</a></li>
+      <li><a href="{% url 'movement_list' %}" class="block text-gray-700 hover:text-blue-600 font-medium py-2">Movimientos</a></li>
+    </ul>
+
+    
+  </nav>
