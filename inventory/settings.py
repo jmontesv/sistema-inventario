@@ -22,6 +22,8 @@ TEMPLATE_DIR = BASE_DIR / 'core' / 'templates'
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # Configuración para detectar si estamos en Render o en local
+RENDER = os.environ.get('RENDER') is not None
+
 if RENDER:
     DEBUG = False
     ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
